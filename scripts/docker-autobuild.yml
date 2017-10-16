@@ -1,0 +1,61 @@
+---
+- name: Autobuild docker images
+  hosts: "{{ host }}"
+ # become: yes
+ # become_user: root
+ # become_method: sudo
+
+  vars:
+    - host: '{{ host }}'
+    - giturl: https://github.com/CBIIT/nci-systems-docker-pub
+    - workdir: "{{ ansible_env.HOME }}/docker-autobuild"
+    - dockerfile_base: "{{ workdir }}/build"
+    - docker_user: '{{ docker_user }}'
+    - docker_user_pass: '{{ docker_user_pass }}'
+
+  
+  tasks:
+    - name: Ensure our workdir exist
+      file:
+        path: "{{ workdir }}"
+        state: directory
+    
+    - name: If old git clone exists nuke it.
+      file:
+        path: "{{ workdir }}"
+        state: absent
+
+    - name: Checkout nci docker files from github
+      git: 
+        repo: "{{  giturl }}"
+        dest: "{{ workdir }}"
+
+    - name: Login to ncidockerhub
+      docker_login:
+        registry_url: ncidockerhub.nci.nih.gov
+        username: "{{ docker_user }}"
+        password: "{{ docker_user_pass }}"
+
+    - name: List name of directories
+      command: ls {{ dockerfile_base }}
+      register: ls_out
+      
+     
+    - name: Build all the docker images
+      docker_image: 
+        path: "{{ dockerfile_base}}/{{ item }}"
+        name: ncidockerhub.nci.nih.gov/cbiit/cbiit-{{ item }}
+        push: yes
+        nocache: yes
+      with_items: 
+        - "{{ ls_out.stdout_lines }}"
+      register: image_build
+
+    - debug: msg={{ image_build }}
+       
+
+    
+
+
+
+      
