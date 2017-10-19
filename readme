@@ -1,0 +1,5 @@
+creted jenkinsmaster image using the files in this folder
+
+this will create the user admin to login and it skips initial setup wizard.
+
+manually setup the ldap configuartion 
