@@ -1,0 +1,5 @@
+[cbiitrepo] 
+name=cbiitrepo
+baseurl=https://nciws-d709-v.nci.nih.gov/cbiit-repo7/ 
+enabled=1 
+gpgcheck=0
