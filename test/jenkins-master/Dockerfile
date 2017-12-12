@@ -92,12 +92,14 @@ ENV JAVA_OPTS="-Xmx4096m"
 COPY conf/jenkins-support /usr/local/bin/jenkins-support
 COPY conf/jenkins.sh /usr/local/bin/jenkins.sh
 
+
 # from a derived Dockerfile, can use `RUN plugins.sh active.txt` to setup /usr/share/jenkins/ref/plugins from a support bundle
 RUN mkdir -p /usr/share/jenkins/ref/plugins/
 COPY conf/dec5-plugins.txt /usr/share/jenkins/plugins.txt
 COPY conf/install-plugins.sh /usr/local/bin/install-plugins.sh
 USER root
 RUN chown -R ${user}:${group} "$JENKINS_HOME"
+USER root
 RUN /usr/local/bin/install-plugins.sh /usr/share/jenkins/plugins.txt
 
 ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
