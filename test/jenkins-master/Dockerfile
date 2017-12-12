@@ -99,7 +99,9 @@ COPY conf/dec5-plugins.txt /usr/share/jenkins/plugins.txt
 COPY conf/install-plugins.sh /usr/local/bin/install-plugins.sh
 USER root
 RUN chown -R ${user}:${group} "$JENKINS_HOME"
-USER root
+RUN chown -R ${user}:${group} /usr/local/bin/install-plugins.sh
+RUN chmod 755 /usr/local/bin/install-plugins.sh
+USER ${user}
 RUN /usr/local/bin/install-plugins.sh /usr/share/jenkins/plugins.txt
 
 ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
