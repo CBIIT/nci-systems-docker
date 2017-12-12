@@ -3,7 +3,8 @@ FROM cbiit/centos7:base
 MAINTAINER CBIIT Systems host Engineering team
 
 #Running yum update
-RUN yum -y update && yum -y install unzip
+#RUN yum clean all
+RUN yum -y update && yum -y install git unzip
 
 #Goblal variables
 ARG user=jenkins
