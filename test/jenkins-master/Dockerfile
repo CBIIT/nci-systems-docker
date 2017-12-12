@@ -22,7 +22,8 @@ RUN groupadd -g ${gid} ${group} \
     && useradd -d "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
 
 
-COPY conf/cbiit-jdk1.8-131-1.el7.x86_64.rpm $JENKINS_HOME
+#COPY conf/cbiit-jdk1.8-131-1.el7.x86_64.rpm $JENKINS_HOME
+RUN wget https://nciws-d709-v.nci.nih.gov/cbiit-repo7/prior-versions/cbiit-jdk1.8-131-1.el7.x86_64.rpm -P $JENKINS_HOME
 RUN rpm -Uvh $JENKINS_HOME/cbiit-jdk1.8-131-1.el7.x86_64.rpm
 
 # `/usr/share/jenkins/ref/` contains all reference configuration we want 
