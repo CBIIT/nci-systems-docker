@@ -103,7 +103,8 @@ RUN chown -R ${user}:${group} /usr/local/bin/install-plugins.sh
 RUN chmod 755 /usr/local/bin/install-plugins.sh
 USER ${user}
 RUN /usr/local/bin/install-plugins.sh /usr/share/jenkins/plugins.txt
-
+USER root
+RUN chmod 755 /usr/local/bin/jenkins.sh
 ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
 
 # Config settings for AD, ant, maven, git and mailer
