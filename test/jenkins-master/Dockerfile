@@ -4,6 +4,7 @@ MAINTAINER CBIIT App Hosting Engineering Team
 #Install some required packages via yum
 #RUN yum -y update && yum -y install git unzip
 RUN yum -y install git unzip
+RUN yum -y install wget
 
 ARG user=jenkins
 ARG group=jenkins
@@ -25,11 +26,12 @@ RUN groupadd -g ${gid} ${group} \
 #RUN usermod -m -d $JENKINS_HOME ${user}
 
 #COPY conf/cbiit-jdk1.8-131-1.el7.x86_64.rpm $JENKINS_HOME
-RUN curl -LOk https://nciws-d709-v.nci.nih.gov/cbiit-repo7/cbiit-jdk1.8-152-1.el7.x86_64.rpm > $JENKINS_HOME/cbiit-jdk1.8-152-1.el7.x86_64.rpm
-#RUN curl -L -O -H "Cookie: oraclelicense=accept-securebackup-cookie" -k "http://download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/jdk-8u151-linux-x64.rpm" > $JENKINS_HOME/jdk-8u151-linux-x64.rpm
+RUN wget --no-cookies --no-check-certificate --header "Cookie: oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u31-b13/jdk-$JAVA_VERSION-linux-x64.rpm" -O /tmp/jdk-8-linux-x64.rpm
+RUN yum -y install /tmp/jdk-8-linux-x64.rpm
+
+#RUN curl -LOk https://nciws-d709-v.nci.nih.gov/cbiit-repo7/cbiit-jdk1.8-152-1.el7.x86_64.rpm > $JENKINS_HOME/cbiit-jdk1.8-152-1.el7.x86_64.rpm
 #RUN rpm -Uvh $JENKINS_HOME/cbiit-jdk1.8-131-1.el7.x86_64.rpm
 #RUN yum install $JENKINS_HOME/cbiit-jdk1.8-152-1.el7.x86_64.rpm
-RUN rpm -Uvh $JENKINS_HOME/cbiit-jdk1.8-152-1.el7.x86_64.rpm
 
 # `/usr/share/jenkins/ref/` contains all reference configuration we want 
 # to set on a fresh new installation. Use it to bundle additional plugins 
