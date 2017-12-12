@@ -3,7 +3,7 @@ MAINTAINER CBIIT App Hosting Engineering Team
 
 #Install some required packages via yum
 #RUN yum -y update && yum -y install git unzip
-RUN yum -y install git
+RUN yum -y install git unzip
 
 ARG user=jenkins
 ARG group=jenkins
@@ -20,7 +20,8 @@ ENV JENKINS_HOME /local/content/jenkins
 # ensure you use the same uid
 RUN mkdir -p $JENKINS_HOME
 RUN groupadd -g ${gid} ${group} \
-    && useradd --create-home --home-dir "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
+    && useradd --home-dir "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
+RUN usermod -m -d $JENKINS_HOME ${user}
 
 #COPY conf/cbiit-jdk1.8-131-1.el7.x86_64.rpm $JENKINS_HOME
 RUN curl -LOk https://nciws-d709-v.nci.nih.gov/cbiit-repo7/prior-versions/cbiit-jdk1.8-131-1.el7.x86_64.rpm > $JENKINS_HOME/cbiit-jdk1.8-131-1.el7.x86_64.rpm
