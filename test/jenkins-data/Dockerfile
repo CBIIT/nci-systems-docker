@@ -2,8 +2,8 @@
 FROM cbiit/centos7:base
 MAINTAINER CBIIT Systems host Engineering team
 
-#keep the image todate and install few required ultilities
-RUN yum -y update && yum -y install git unzip
+#keep the image todate with current os patches
+RUN yum -y update
 
 #Goblal variables
 ARG user=jenkins
