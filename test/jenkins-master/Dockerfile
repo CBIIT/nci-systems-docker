@@ -19,7 +19,7 @@ ENV JENKINS_HOME /local/content/jenkins
 # If you bind mount a volume from the host or a data container, 
 # ensure you use the same uid
 
-RUN mkdir -p $JENKINS_HOME
+RUN mkdir -p /local/content/jenkins
 RUN useradd -d “/local/content/jenkins” -u 1000 -m -s /bin/bash jenkins
 #RUN groupadd -g ${gid} ${group} \
 #    && useradd --home-dir "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
