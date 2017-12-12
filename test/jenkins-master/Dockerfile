@@ -3,6 +3,7 @@ MAINTAINER CBIIT App Hosting Engineering Team
 
 #Install some required packages via yum
 #RUN yum -y update && yum -y install git unzip
+RUN yum -y install git
 
 ARG user=jenkins
 ARG group=jenkins
