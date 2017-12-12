@@ -20,7 +20,7 @@ ENV JENKINS_HOME /local/content/jenkins
 # ensure you use the same uid
 
 RUN mkdir -p $JENKINS_HOME
-RUN useradd -d “$JENKINS_HOME” -u 1000 -m -s /bin/bash jenkins
+RUN useradd -d “/local/content/jenkins” -u 1000 -m -s /bin/bash jenkins
 #RUN groupadd -g ${gid} ${group} \
 #    && useradd --home-dir "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
 RUN usermod -m -d $JENKINS_HOME ${user}
