@@ -18,11 +18,10 @@ ENV JENKINS_HOME /local/content/jenkins
 # Jenkins is run with user `jenkins`, uid = 1000
 # If you bind mount a volume from the host or a data container, 
 # ensure you use the same uid
-#RUN mkdir -p /local/content/jenkins
+RUN mkdir -p $JENKINS_HOME
 RUN groupadd -g ${gid} ${group} \
-    && useradd -m -d "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
+    && useradd --create-home --home-dir "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
 
-RUN mkdir -p /local/content/jenkins
 #COPY conf/cbiit-jdk1.8-131-1.el7.x86_64.rpm $JENKINS_HOME
 RUN curl -LOk https://nciws-d709-v.nci.nih.gov/cbiit-repo7/prior-versions/cbiit-jdk1.8-131-1.el7.x86_64.rpm > $JENKINS_HOME/cbiit-jdk1.8-131-1.el7.x86_64.rpm
 RUN rpm -Uvh $JENKINS_HOME/cbiit-jdk1.8-131-1.el7.x86_64.rpm
