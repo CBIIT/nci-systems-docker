@@ -22,7 +22,7 @@ ENV JENKINS_HOME /local/content/jenkins
 RUN mkdir -p $JENKINS_HOME
 RUN useradd -d “$JENKINS_HOME” -u 1000 -m -s /bin/bash jenkins
 #RUN groupadd -g ${gid} ${group} \
-    && useradd --home-dir "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
+#    && useradd --home-dir "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
 RUN usermod -m -d $JENKINS_HOME ${user}
 
 #COPY conf/cbiit-jdk1.8-131-1.el7.x86_64.rpm $JENKINS_HOME
