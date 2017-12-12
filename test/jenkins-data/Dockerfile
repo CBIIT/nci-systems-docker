@@ -14,8 +14,8 @@ ENV JENKINS_HOME /local/content/jenkins
 ENV JENKINS_LOG /local/content/jenkins/log
 # user${uid} must match the user id for the jenkins user in jenkins-master
 #RUN mkdir -p $JENKINS_HOME
-RUN groupadd -g ${gid} ${group} \
-    && useradd -d "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
+RUN groupadd -g ${gid} ${group}
+RUN useradd -d "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
 
 RUN mkdir -p $JENKINS_LOG
 RUN chown -R ${user}:${group} $JENKINS_LOG
