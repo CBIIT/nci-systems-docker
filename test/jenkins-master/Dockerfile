@@ -50,8 +50,8 @@ ENV PATH="/usr/local/jdk1.8/bin:${PATH}"
 # jenkins.war checksum, download will be validated using it
 #ARG JENKINS_SHA=32b8bd1a86d6d4a91889bd38fb665db4090db081
 #Version 2.32.2
-#ARG JENKINS_SHA=f495a08733f69b1845fd2d9b3a46482adb6e6cee
-ARG JENKINS_SHA
+ARG JENKINS_SHA=f495a08733f69b1845fd2d9b3a46482adb6e6cee
+#ARG JENKINS_SHA
 
 # Can be used to customize where jenkins.war get downloaded from
 ARG JENKINS_URL=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war
