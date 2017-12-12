@@ -4,8 +4,7 @@ MAINTAINER CBIIT Systems host Engineering team
 
 #Running yum update
 RUN yum clean all
-#RUN yum -y update && yum -y install git unzip
-RUN yum -y update
+RUN yum -y update && yum -y install git
 
 #Goblal variables
 ARG user=jenkins
