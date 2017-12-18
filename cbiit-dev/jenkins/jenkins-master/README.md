@@ -1,1 +1,0 @@
-See https://github.com/jenkinsci/docker for the origins of this script and a description of how to use it.

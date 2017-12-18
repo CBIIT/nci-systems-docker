@@ -1,29 +1,13 @@
 # Needs to match the centos version used in jenkins-master
-FROM cbiit/centos7:base
-MAINTAINER CBIIT Systems host Engineering team
-
-#Running yum update
-RUN yum -y update && yum -y install git unzip
-
-#Goblal variables
-ARG user=jenkins
-ARG group=jenkins
-ARG uid=1000
-ARG gid=1000
-ENV JENKINS_HOME /local/content/jenkins
-ENV JENKINS_LOG /local/content/jenkins/log
-
-# user${uid} must match the user id for the jenkins user in jenkins-master
-RUN mkdir -p $JENKINS_HOME
-RUN groupadd -g ${gid} ${group} \
-    && useradd -d "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
-
-RUN mkdir -p $JENKINS_LOG
-RUN chown -R ${user}:${group} $JENKINS_LOG
-
-VOLUME ["$JENKINS_LOG", "$JENKINS_HOME"]
-
-USER ${user}
-
+FROM ncidockerhub.nci.nih.gov/cbiit-dev/jenkins-data:latest
+#FROM centos:latest
+#USER root
+#RUN chown -R jenkins:jenkins /local/content/jenkins/
+# Config settings for AD, ant, maven, git and mailer
+COPY conf/hudson.tasks.Mailer.xml $JENKINS_HOME
+COPY conf/hudson.tasks.Ant.xml $JENKINS_HOME
+COPY conf/hudson.tasks.Maven.xml $JENKINS_HOME
+COPY conf/hudson.plugins.git.GitTool.xml $JENKINS_HOME
+COPY conf/config.xml $JENKINS_HOME
 CMD ["echo", "Data container for Jenkins"]
 
