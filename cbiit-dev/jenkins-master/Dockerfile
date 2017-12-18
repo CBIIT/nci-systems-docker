@@ -108,11 +108,11 @@ RUN chmod 755 /usr/local/bin/jenkins.sh
 ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
 
 # Config settings for AD, ant, maven, git and mailer
-COPY conf/hudson.tasks.Mailer.xml $JENKINS_HOME
-COPY conf/hudson.tasks.Ant.xml $JENKINS_HOME
-COPY conf/hudson.tasks.Maven.xml $JENKINS_HOME
-COPY conf/hudson.plugins.git.GitTool.xml $JENKINS_HOME
-COPY conf/config.xml $JENKINS_HOME
+#COPY conf/hudson.tasks.Mailer.xml $JENKINS_HOME
+#COPY conf/hudson.tasks.Ant.xml $JENKINS_HOME
+#COPY conf/hudson.tasks.Maven.xml $JENKINS_HOME
+#COPY conf/hudson.plugins.git.GitTool.xml $JENKINS_HOME
+#COPY conf/config.xml $JENKINS_HOME
 #COPY conf/admin_config.xml $JENKINS_HOME/users/admin/config.xml
 
 # fix permissions
