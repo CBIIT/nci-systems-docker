@@ -86,7 +86,7 @@ ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
 USER ${user}
 
 #ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
-ENV JAVA_OPTS="-Xmx4096m"
+#ENV JAVA_OPTS="-Xmx4096m"
 #ENV JENKINS_OPTS="--prefix=/jenkins"
 
 COPY conf/jenkins-support /usr/local/bin/jenkins-support

@@ -1,15 +1,20 @@
-jenkinsdata:
- build: jenkins-data
 jenkinsserver:
- build: jenkins-master
- volumes_from:
-  - jenkinsdata
- ports:
+ #build: jenkins-master
+  image: ncidockerhub.nci.nih.gov/cbiit-dev/jenkins-master:latest
+  restart: always
+  user: jenkins
+  volumes:
+   - /admfs/local/content/jenkins:/local/content/jenkins
+   - /admfs/local/content/jenkins/log:/local/content/jenkins/log
+  environment:
+   - JAVA_OPTS="-Xmx4096m"
+  ports:
  # - "8080:8080"
-  - "50000:50000"
+   - "50000:50000"
 jenkinsnginx:
- build: jenkins-nginx
- ports:
-  - "80:80"
- links:
-  - jenkinsserver:jenkins-master
+ #build: jenkins-nginx
+  image: cbiit-dev/jenkins-master:latest
+  ports:
+   - "80:80"
+  links:
+   - jenkinsserver:jenkins-master
