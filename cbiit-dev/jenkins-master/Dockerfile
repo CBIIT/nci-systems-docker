@@ -118,5 +118,4 @@ ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 # fix permissions
 RUN echo "The user is ${user}, group  ${group} ang jenkins home $JENKINS_HOME"
 RUN chown -R ${user}:${group} "$JENKINS_HOME" 
-RUN chmod 755 $JENKINS_HOME/copy_reference_file.log
-RUN ls -l $JENKINS_HOME/copy_reference_file.log
+RUN chmod -R 755 $JENKINS_HOME
