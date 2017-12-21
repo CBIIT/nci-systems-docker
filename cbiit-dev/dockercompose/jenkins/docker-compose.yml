@@ -1,11 +1,11 @@
 jenkinsserver:
  #build: jenkins-master
-  image: ncidockerhub.nci.nih.gov/cbiit-dev/jenkins-master
+  image: ncidockerhub.nci.nih.gov/cbiit-dev/jenkins-master:latest
   restart: always
   user: jenkins
   volumes:
-   - /admfs/local/content/jenkins:/local/content/jenkins
-   - /admfs/local/content/jenkins/log:/local/content/jenkins/log
+   - ./admfs/local/content/jenkins:/local/content/jenkins
+   - ./admfs/local/content/jenkins/log:/local/content/jenkins/log
   environment:
    - JAVA_OPTS="-Xmx4096m"
   ports:
@@ -13,7 +13,7 @@ jenkinsserver:
    - "50000:50000"
 jenkinsnginx:
  #build: jenkins-nginx
-  image: cbiit-dev/jenkins-master:latest
+  image: ncidockerhub.nci.nih.gov/cbiit-dev/jenkins-nginx:latest
   ports:
    - "80:80"
   links:
