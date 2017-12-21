@@ -1,6 +1,6 @@
 jenkinsserver:
  #build: jenkins-master
-  image: ncidockerhub.nci.nih.gov/cbiit-dev/jenkins-master:latest
+  image: cbiit-dev/jenkins-master:latest
   restart: always
   user: jenkins
   volumes:
