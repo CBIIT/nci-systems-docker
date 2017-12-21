@@ -119,3 +119,5 @@ ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 RUN echo "The user is ${user}, group  ${group} ang jenkins home $JENKINS_HOME"
 RUN chown -R ${user}:${group} "$JENKINS_HOME" 
 RUN chmod -R 755 $JENKINS_HOME
+USER root
+RUN chown -R jenkins:jenkins /local/content/jenkins/
