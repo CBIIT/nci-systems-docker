@@ -27,7 +27,7 @@ ENV JENKINS_HOME /local/content/jenkins
 # Jenkins is run with user `jenkins`, uid = 1000
 # If you bind mount a volume from the host or a data container, 
 # ensure you use the same uid
-
+USER root
 RUN mkdir -p $JENKINS_HOME
 RUN groupadd -g ${gid} ${group} \
     && useradd --home-dir "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
@@ -83,7 +83,6 @@ EXPOSE 8080
 EXPOSE 50000
 
 ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
-USER ${user}
 
 #ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 #ENV JAVA_OPTS="-Xmx4096m"
@@ -92,18 +91,14 @@ USER ${user}
 COPY conf/jenkins-support /usr/local/bin/jenkins-support
 COPY conf/jenkins.sh /usr/local/bin/jenkins.sh
 
-
 # from a derived Dockerfile, can use `RUN plugins.sh active.txt` to setup /usr/share/jenkins/ref/plugins from a support bundle
 RUN mkdir -p /usr/share/jenkins/ref/plugins/
 COPY conf/dec5-plugins.txt /usr/share/jenkins/plugins.txt
 COPY conf/install-plugins.sh /usr/local/bin/install-plugins.sh
-USER root
 RUN chown -R ${user}:${group} "$JENKINS_HOME"
 RUN chown -R ${user}:${group} /usr/local/bin/install-plugins.sh
 RUN chmod 755 /usr/local/bin/install-plugins.sh
-USER ${user}
 RUN /usr/local/bin/install-plugins.sh /usr/share/jenkins/plugins.txt
-USER root
 RUN chmod 755 /usr/local/bin/jenkins.sh
 ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
 
@@ -115,15 +110,11 @@ ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
 #COPY conf/config.xml $JENKINS_HOME
 #COPY conf/admin_config.xml $JENKINS_HOME/users/admin/config.xml
 
-# fix permissions
-USER root
-RUN chown -R ${user}:${group} "$JENKINS_HOME" 
-
-# drop back to jenkins user
-USER ${user}
-
 # Prefix of the URL path
 ENV JENKINS_OPTS="--prefix=/jenkins"
 
 # disable initial setup wizard
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
+# fix permissions
+RUN echo "The user is ${user}, group  ${group} ang jenkins home $JENKINS_HOME"
+RUN chown -R ${user}:${group} "$JENKINS_HOME" 
