@@ -82,7 +82,7 @@ EXPOSE 8080
 EXPOSE 50000
 
 ENV COPY_REFERENCE_FILE_LOG /$JENKINS_HOME/log/copy_reference_file.log 
-RUN touch $COPY_REFERENCE_FILE_LOG && chown jenkins.jenkins $COPY_REFERENCE_FILE_LOG
+RUN touch $COPY_REFERENCE_FILE_LOG && chown -R ${user}:${group} $COPY_REFERENCE_FILE_LOG
 
 #ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 #ENV JAVA_OPTS="-Xmx4096m"
@@ -98,10 +98,9 @@ COPY conf/dec5-plugins.txt /usr/share/jenkins/plugins.txt
 COPY conf/install-plugins.sh /usr/local/bin/install-plugins.sh
 #RUN chown -R ${user}:${group} "$JENKINS_HOME"
 #RUN chown -R ${user}:${group} /usr/local/bin/install-plugins.sh
-RUN chmod 755 /usr/local/bin/install-plugins.sh
+#RUN chmod 755 /usr/local/bin/install-plugins.sh
 RUN /usr/local/bin/install-plugins.sh /usr/share/jenkins/plugins.txt
-RUN chmod 755 /usr/local/bin/jenkins.sh
-
+#RUN chmod 755 /usr/local/bin/jenkins.sh
 
 ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
 
