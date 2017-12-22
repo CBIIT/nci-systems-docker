@@ -27,7 +27,6 @@ ENV JENKINS_HOME /local/content/jenkins
 # Jenkins is run with user `jenkins`, uid = 1000
 # If you bind mount a volume from the host or a data container, 
 # ensure you use the same uid
-USER root
 RUN mkdir -p $JENKINS_HOME
 RUN groupadd -g ${gid} ${group} \
     && useradd --home-dir "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
@@ -87,7 +86,8 @@ EXPOSE 50000
 #ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 #ENV JAVA_OPTS="-Xmx4096m"
 #ENV JENKINS_OPTS="--prefix=/jenkins"
-
+RUN echo "Current user: ${user}"
+USER ${user}
 COPY conf/jenkins-support /usr/local/bin/jenkins-support
 COPY conf/jenkins.sh /usr/local/bin/jenkins.sh
 
@@ -101,7 +101,7 @@ RUN chmod 755 /usr/local/bin/install-plugins.sh
 RUN /usr/local/bin/install-plugins.sh /usr/share/jenkins/plugins.txt
 RUN chmod 755 /usr/local/bin/jenkins.sh
 
-USER ${user}
+
 ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
 
 # Config settings for AD, ant, maven, git and mailer
@@ -119,9 +119,9 @@ ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
 # disable initial setup wizard
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 # fix permissions
-RUN echo "The user is ${user}, group  ${group} ang jenkins home $JENKINS_HOME"
-USER root
-RUN chown -R ${user}:${group} "$JENKINS_HOME" 
-RUN chmod -R 755 $JENKINS_HOME
+#RUN echo "The user is ${user}, group  ${group} ang jenkins home $JENKINS_HOME"
+#USER root
+#RUN chown -R ${user}:${group} "$JENKINS_HOME" 
+#RUN chmod -R 755 $JENKINS_HOME
 
 
