@@ -4,8 +4,8 @@ jenkinsserver:
   restart: always
   user: jenkins
   volumes:
-   - ./admfs/local/content/jenkins:/local/content/jenkins
-   - ./admfs/local/content/jenkins/log:/local/content/jenkins/log
+   - ./admfs/local/content/jenkins:/local/content/jenkins:rw
+   - ./admfs/local/content/jenkins/log:/local/content/jenkins/log:rw
   environment:
    - JAVA_OPTS="-Xmx4096m"
   ports:
