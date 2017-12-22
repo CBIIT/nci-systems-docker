@@ -81,7 +81,7 @@ EXPOSE 8080
 # will be used by attached slave agents:
 EXPOSE 50000
 
-ENV COPY_REFERENCE_FILE_LOG /$JENKINS_HOME/log/copy_reference_file.log 
+ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/log/copy_reference_file.log 
 RUN touch $COPY_REFERENCE_FILE_LOG && chown -R ${user}:${group} $COPY_REFERENCE_FILE_LOG
 
 #ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
@@ -99,6 +99,7 @@ RUN chown -R ${user}:${group} "$JENKINS_HOME"
 RUN chown -R ${user}:${group} /usr/local/bin/install-plugins.sh
 RUN chmod 755 /usr/local/bin/install-plugins.sh
 RUN chmod 755 /usr/local/bin/jenkins.sh
+RUN touch $COPY_REFERENCE_FILE_LOG && chown -R ${user}:${group} $COPY_REFERENCE_FILE_LOG
 
 RUN echo "Current user: ${user}"
 USER ${user}
