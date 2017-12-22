@@ -87,8 +87,7 @@ RUN touch $COPY_REFERENCE_FILE_LOG && chown -R ${user}:${group} $COPY_REFERENCE_
 #ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 #ENV JAVA_OPTS="-Xmx4096m"
 #ENV JENKINS_OPTS="--prefix=/jenkins"
-RUN echo "Current user: ${user}"
-USER ${user}
+
 COPY conf/jenkins-support /usr/local/bin/jenkins-support
 COPY conf/jenkins.sh /usr/local/bin/jenkins.sh
 
@@ -96,12 +95,14 @@ COPY conf/jenkins.sh /usr/local/bin/jenkins.sh
 RUN mkdir -p /usr/share/jenkins/ref/plugins/
 COPY conf/dec5-plugins.txt /usr/share/jenkins/plugins.txt
 COPY conf/install-plugins.sh /usr/local/bin/install-plugins.sh
-#RUN chown -R ${user}:${group} "$JENKINS_HOME"
-#RUN chown -R ${user}:${group} /usr/local/bin/install-plugins.sh
-#RUN chmod 755 /usr/local/bin/install-plugins.sh
-RUN /usr/local/bin/install-plugins.sh /usr/share/jenkins/plugins.txt
-#RUN chmod 755 /usr/local/bin/jenkins.sh
+RUN chown -R ${user}:${group} "$JENKINS_HOME"
+RUN chown -R ${user}:${group} /usr/local/bin/install-plugins.sh
+RUN chmod 755 /usr/local/bin/install-plugins.sh
+RUN chmod 755 /usr/local/bin/jenkins.sh
 
+RUN echo "Current user: ${user}"
+USER ${user}
+RUN /usr/local/bin/install-plugins.sh /usr/share/jenkins/plugins.txt
 ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
 
 # Config settings for AD, ant, maven, git and mailer
