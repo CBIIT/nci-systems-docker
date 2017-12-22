@@ -82,7 +82,7 @@ EXPOSE 8080
 # will be used by attached slave agents:
 EXPOSE 50000
 
-ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
+
 
 #ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 #ENV JAVA_OPTS="-Xmx4096m"
@@ -100,6 +100,8 @@ RUN chown -R ${user}:${group} /usr/local/bin/install-plugins.sh
 RUN chmod 755 /usr/local/bin/install-plugins.sh
 RUN /usr/local/bin/install-plugins.sh /usr/share/jenkins/plugins.txt
 RUN chmod 755 /usr/local/bin/jenkins.sh
+
+USER ${user}
 ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
 
 # Config settings for AD, ant, maven, git and mailer
@@ -110,14 +112,16 @@ ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
 #COPY conf/config.xml $JENKINS_HOME
 #COPY conf/admin_config.xml $JENKINS_HOME/users/admin/config.xml
 
+
 # Prefix of the URL path
 ENV JENKINS_OPTS="--prefix=/jenkins"
-
+ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
 # disable initial setup wizard
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 # fix permissions
 RUN echo "The user is ${user}, group  ${group} ang jenkins home $JENKINS_HOME"
+USER root
 RUN chown -R ${user}:${group} "$JENKINS_HOME" 
 RUN chmod -R 755 $JENKINS_HOME
-USER root
-RUN chown -R jenkins:jenkins /local/content/jenkins/
+
+
