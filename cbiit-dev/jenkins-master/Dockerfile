@@ -81,7 +81,8 @@ EXPOSE 8080
 # will be used by attached slave agents:
 EXPOSE 50000
 
-
+ENV COPY_REFERENCE_FILE_LOG /$JENKINS_HOME/log/copy_reference_file.log 
+RUN touch $COPY_REFERENCE_FILE_LOG && chown jenkins.jenkins $COPY_REFERENCE_FILE_LOG
 
 #ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 #ENV JAVA_OPTS="-Xmx4096m"
@@ -95,8 +96,8 @@ COPY conf/jenkins.sh /usr/local/bin/jenkins.sh
 RUN mkdir -p /usr/share/jenkins/ref/plugins/
 COPY conf/dec5-plugins.txt /usr/share/jenkins/plugins.txt
 COPY conf/install-plugins.sh /usr/local/bin/install-plugins.sh
-RUN chown -R ${user}:${group} "$JENKINS_HOME"
-RUN chown -R ${user}:${group} /usr/local/bin/install-plugins.sh
+#RUN chown -R ${user}:${group} "$JENKINS_HOME"
+#RUN chown -R ${user}:${group} /usr/local/bin/install-plugins.sh
 RUN chmod 755 /usr/local/bin/install-plugins.sh
 RUN /usr/local/bin/install-plugins.sh /usr/share/jenkins/plugins.txt
 RUN chmod 755 /usr/local/bin/jenkins.sh
@@ -115,7 +116,7 @@ ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
 
 # Prefix of the URL path
 ENV JENKINS_OPTS="--prefix=/jenkins"
-ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
+
 # disable initial setup wizard
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 # fix permissions
