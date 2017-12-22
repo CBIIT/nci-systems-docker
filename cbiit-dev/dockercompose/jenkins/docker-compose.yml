@@ -8,6 +8,7 @@ jenkinsserver:
    - "/admfs/local/content/jenkins/log:/local/content/jenkins/log:rw"
   environment:
    - JAVA_OPTS="-Xmx4096m"
+   - JENKINS_OPTS="--logfile=/local/content/jenkins/log/jenkins.log
   ports:
  # - "8080:8080"
    - "50000:50000"
