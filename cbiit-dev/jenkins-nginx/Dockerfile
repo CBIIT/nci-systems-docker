@@ -1,4 +1,4 @@
-FROM cbiit/centos7:base
+FROM cbiit/centos7_base
 MAINTAINER CBIIT App hosting Engineering team
 
 #Some yum updates and required package install
