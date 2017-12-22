@@ -1,4 +1,4 @@
-FROM cbiit/centos7:base
+FROM cbiit/centos7_base
 MAINTAINER CBIIT App Hosting Engineering Team
 
 RUN echo -e "[cbiitrepo] \
@@ -116,10 +116,10 @@ ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
 
 
 # Prefix of the URL path
-ENV JENKINS_OPTS="--prefix=/jenkins"
+#ENV JENKINS_OPTS="--prefix=/jenkins"
 
 # disable initial setup wizard
-ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
+#ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 # fix permissions
 #RUN echo "The user is ${user}, group  ${group} ang jenkins home $JENKINS_HOME"
 #USER root
