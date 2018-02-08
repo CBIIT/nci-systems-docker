@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.tasks.Ant_-DescriptorImpl plugin="ant@1.4">
+  <installations>
+    <hudson.tasks.Ant_-AntInstallation>
+      <name>apache-ant-1.9.2</name>
+      <home>/usr/local/apache-ant-1.9.2</home>
+      <properties/>
+    </hudson.tasks.Ant_-AntInstallation>
+    <hudson.tasks.Ant_-AntInstallation>
+      <name>apache-ant-1.9.4</name>
+      <home>/usr/local/apache-ant-1.9.4</home>
+      <properties/>
+    </hudson.tasks.Ant_-AntInstallation>
+  </installations>
+</hudson.tasks.Ant_-DescriptorImpl>
