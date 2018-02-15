@@ -10,7 +10,7 @@ MAINTAINER CBIIT App Hosting Engineering Team
 #       |- jenkins.sh (required)
 #       |- plugins.txt (optional)
 #    |- Dockerfile (required)
-#    |- init.groovy.d/ (required)
+#    |- init.groovy.d/ (required, but may be empty)
 
 # define args
 # IMPORTANT: uid & gid must map to valid account in host system
