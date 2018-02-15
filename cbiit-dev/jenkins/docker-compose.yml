@@ -1,0 +1,42 @@
+# Notes:
+# list_example:
+#   - name=value
+#   - name=value
+# mapping_example:
+#   name: value
+#   name: value
+# args: only list formst can omit values
+# boolean values enclose in string: "yes", "no", "true", "false", "on", "off"
+# overridable args and env vars will pass blank (vs nothing) to docker when not defined in environment (see https://github.com/docker/compose/issues/3608)
+
+version: '2'
+services:
+  jenkins-master:
+    build:
+      context: ./jenkins-master
+      dockerfile: Dockerfile
+      args:
+        - jenkins_version
+        - jenkins_sha
+        - debug
+    image: jenkins-master:latest
+    #jenkinsa=1996
+    user: 1996:1996
+    # expose /local/home/jenkins so host-specific ssh key pair can be reached during initialization
+    # expost /local/tmp in case docker container runs out of space
+    volumes:
+      - /local/content/jenkins/18080:/local/content/jenkins
+      - /local/home/jenkinsa:/local/home/jenkinsa
+      - /local/tmp:/local/tmp
+    # 8080: JENKINS_HTTP
+    # 33848: JENKINS_UDP (for auto-identification)
+    # 50000: JENKINS_JNLP
+    ports:
+      - "18080:8080"
+      - "33848:33848/udp"
+      - "50000:50000"
+    restart: always
+    # JENKINS_REINSTALL: if not blank, then reinstall configuration
+    environment:
+      - JENKINS_REINSTALL
+      - DEBUG
