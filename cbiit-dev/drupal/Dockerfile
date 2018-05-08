@@ -11,6 +11,8 @@ ADD ./settings.php /tmp
 RUN yum -y install yum-plugin-ovl \
 && yum -y upgrade \
 && yum -y install wget \
+&& yum -y install which \
+&& yum -y install vi \
 && yum -y install epel-release \
 && yum -y install cbiit-apache2.4 \
 && yum -y install cbiit-php5.6 \
