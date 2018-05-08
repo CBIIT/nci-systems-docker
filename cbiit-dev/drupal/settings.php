@@ -601,7 +601,7 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
  * Remove the leading hash sign to enable.
  */
 # $conf['theme_debug'] = TRUE;
-include DRUPAL_ROOT . '/sites/all/modules/contrib/domain/settings.inc';
+#include DRUPAL_ROOT . '/sites/all/modules/contrib/domain/settings.inc';
 // Enable page caching
 $conf['cache'] = 1;
 // Enable block cache
