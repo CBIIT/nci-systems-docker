@@ -31,6 +31,7 @@ RUN groupadd drupal -g 26013 \
 && tar xz --strip-components=1 -f drupal-$DRUPAL_VERSION.tar.gz  -C /local/drupal/cbiitdrupal \
 && rm drupal-${DRUPAL_VERSION}.tar.gz \ 
 && mv /tmp/settings.php /local/drupal/cbiitdrupal/sites/default \
+&& chmod 644 /local/drupal/cbiitdrupal/sites/default/settings.php \
 && chown -R drupal:drupal /local/drupal
 
 ENTRYPOINT ["/usr/local/apache2.4/bin/httpd","-k", "start", "-DFOREGROUND"]  
