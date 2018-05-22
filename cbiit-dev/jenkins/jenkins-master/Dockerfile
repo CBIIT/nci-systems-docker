@@ -56,7 +56,8 @@ ENV BIN_DIR=/usr/local/bin \
     -Dcom.sun.jndi.ldap.connect.timout=10000 -Dcom.sun.jndi.ldap.read.timeout=20000 \
     -Djavax.net.ssl.trustStorePassword=changeit \
     -Djenkins.install.runSetupWizard=false \
-    -Dhudson.udp=$jenkins_udp \ -Dhudson.remoting.ClassFilter='java.io.BufferedOutputStream,java.io.PrintStream,java.io.FileOutputStream,java.io.FileDescriptor,java.io.BufferedWriter,java.io.OutputStreamWriter,sun.nio.cs.StreamEncoder,sun.nio.cs.UTF_8,sun.nio.cs.UTF_8\$Encoder,java.nio.charset.CodingErrorAction,java.nio.HeapByteBuffer,java.text.SimpleDateFormat,java.text.DecimalFormat,java.text.DecimalFormatSymbols,java.text.DateFormatSymbols,LogFileOutputStream' \
+    -Dhudson.udp=$jenkins_udp \
+    -Dhudson.remoting.ClassFilter='java.io.BufferedOutputStream,java.io.PrintStream,java.io.FileOutputStream,java.io.FileDescriptor,java.io.BufferedWriter,java.io.OutputStreamWriter,sun.nio.cs.StreamEncoder,sun.nio.cs.UTF_8,sun.nio.cs.UTF_8\$Encoder,java.nio.charset.CodingErrorAction,java.nio.HeapByteBuffer,java.text.SimpleDateFormat,java.text.DecimalFormat,java.text.DecimalFormatSymbols,java.text.DateFormatSymbols,LogFileOutputStream' \
   " \
   JENKINS_REINSTALL="" \
   JENKINS_JNLP_PORT=$jenkins_jnlp \
