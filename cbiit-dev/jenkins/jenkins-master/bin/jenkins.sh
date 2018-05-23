@@ -50,7 +50,7 @@ if [[ $# -lt 1 ]] || [[ "$1" == "--"* ]]; then
     && { echo "FATAL: Jenkins WAR not found in '$REF_DIR/lib/$base'."; exit 1; }
 
   #reinstall reference files in workspace, if needed
-  if [ -n "$JENKINS_REINSTALL" -a -d $REF_DIR ] || [ ! -d $JENKINS_HOME -a -d $REF_DIR ]; then 
+  if [ -n "$JENKINS_REINSTALL" -a -d $REF_DIR ] || [ ! -d $JENKINS_WAR -a -d $REF_DIR ]; then 
     echo "Copy reference files..."
     rsync -avzh --delete $REF_DIR/ $JENKINS_HOME/ || exit $?
     echo "Copy reference files...OK"
