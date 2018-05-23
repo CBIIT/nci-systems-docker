@@ -14,7 +14,7 @@ MAINTAINER CBIIT App Hosting Engineering Team
 
 # define args
 # IMPORTANT: uid & gid must map to valid account in host system
-# NOTE: jenkins_sha and tini_sha must be downloaded manually
+# NOTES: jenkins_sha and tini_sha must be calculated manually using sha1sum
 ARG jenkins_version=2.32.3
 ARG jenkins_sha=a25b9a314ca9e76f9673da7309e1882e32674223
 ARG jenkins_url=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/$jenkins_version/jenkins-war-$jenkins_version.war
