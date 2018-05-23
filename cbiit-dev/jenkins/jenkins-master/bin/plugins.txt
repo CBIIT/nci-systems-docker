@@ -1,3 +1,5 @@
+#Full list of plugins (top-level and dependencies)
+#IMPORTANT: These plugin versions must be compatible with the jenkins version defined in the Dockerfile
 ace-editor:1.1
 active-directory:2.6
 ant:1.4

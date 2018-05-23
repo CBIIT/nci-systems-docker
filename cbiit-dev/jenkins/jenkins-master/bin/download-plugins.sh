@@ -6,7 +6,7 @@
  # WARNING: This script does not check plugin dependencies!!
  #
  # Plugins file format: <name>:<version> (version may be 'latest' or <blank>, comment lines begin 
- # with '#' and will be ignored)
+ # with '#' and will be ignored; blank lines will be ignored)
  #
  # @author Phil Hartman <phil.hartman@nih.gov>
  ## 
@@ -24,7 +24,7 @@ set -o pipefail
 
 #if not reinstalling, then exit
 if [ -z "JENKINS_REINSTALL" ]; then
-  echo "Download plugins...SKIPPED. JENKINS_REINSTALL=$JENKINS_REINSTALL"
+  echo "Download plugins...SKIPPED. JENKINS_REINSTALL is blank"
   exit 0
 fi
 
@@ -43,8 +43,8 @@ total="$(grep -P '(?!^\s*($|#))' $PLUGINS_FILE|wc -l)" || exit $?
 i=0
 while read spec; do
     plugin=(${spec//:/ });
-    [[ ${plugin[0]} =~ ^\s*# ]] && continue
-    [[ ${plugin[0]} =~ ^\s*$ ]] && continue
+    [[ ${plugin[0]} =~ ^\s*# ]] && continue #skip comments
+    [[ ${plugin[0]} =~ ^\s*$ ]] && continue #skip blank lines
     [[ -z ${plugin[1]} ]] && plugin[1]="latest"
     echo "Download ${plugin[0]}:${plugin[1]} ($(((i+1))) of $total)..."
     (
