@@ -118,7 +118,7 @@ RUN mkdir -p $REF_DIR/log
 # see https://github.com/docker/docker/issues/8331
 RUN if [ ! -d $REF_DIR/lib ]; then mkdir $REF_DIR/lib; fi \
   && curl -fsSL $jenkins_url -o $REF_DIR/lib/jenkins.war && echo "$jenkins_sha $REF_DIR/lib/jenkins.war" | sha1sum -c -
-#COPY lib/ $REF_DIR/lib/
+COPY lib/ $REF_DIR/lib/
 
 # download plugins to reference directory
 RUN env DEBUG=$debug $BIN_DIR/download-plugins.sh
