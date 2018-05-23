@@ -35,8 +35,24 @@ ARG jenkins_uc=https://updates.jenkins.io
 ARG debug
 
 # validate args are set (see https://github.com/docker/compose/issues/3608 for explanation on when args might not be set)
-RUN for arg in user uid gid jenkins_port jenkins_udp jenkins_jnlp jenkins_version jenkins_sha jenkins_url tini_version \
-  tini_sha tini_url java_io_tmpdir user_root repos_host repos_enabled; do \
+RUN for arg in \
+  jenkins_version \
+  jenkins_sha \
+  jenkins_url \
+  user \
+  uid \
+  gid \
+  jenkins_port \
+  jenkins_udp \
+  jenkins_jnlp \
+  tini_version \
+  tini_sha \
+  tini_url \
+  java_io_tmpdir \
+  user_root \
+  repos_host \
+  repos_enabled \
+  ; do \
     if [ -z "${!arg}" ]; then echo "FATAL: ARG '${!arg}' not set"; exit 1; fi \
   done
   
