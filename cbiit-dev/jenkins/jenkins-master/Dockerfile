@@ -14,15 +14,16 @@ MAINTAINER CBIIT App Hosting Engineering Team
 
 # define args
 # IMPORTANT: uid & gid must map to valid account in host system
+# NOTE: jenkins_sha and tini_sha must be downloaded manually
+ARG jenkins_version=2.32.3
+ARG jenkins_sha=a25b9a314ca9e76f9673da7309e1882e32674223
+ARG jenkins_url=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/$jenkins_version/jenkins-war-$jenkins_version.war
 ARG user=jenkinsa
 ARG uid=1996
 ARG gid=1996
 ARG jenkins_port=8080
 ARG jenkins_udp=33848
 ARG jenkins_jnlp=50000
-ARG jenkins_version=2.32.3
-ARG jenkins_sha=a25b9a314ca9e76f9673da7309e1882e32674223
-ARG jenkins_url=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/$jenkins_version/jenkins-war-$jenkins_version.war
 ARG tini_version=0.9.0
 ARG tini_sha=fa23d1e20732501c3bb8eeeca423c89ac80ed452
 ARG tini_url=https://github.com/krallin/tini/releases/download/v${tini_version}/tini-static
