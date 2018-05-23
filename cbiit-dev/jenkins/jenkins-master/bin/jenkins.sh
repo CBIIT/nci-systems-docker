@@ -1,10 +1,10 @@
 #! /bin/bash -e
 ##
  # This script will start up a jenkins instance in free-standing mode.
- # It assumes $JENKINS_HOME already exists.
- #
- # WARNING: If reinitializing, then JENKINS_HOME will be wiped out and
- # repopulated!!
+ # If JENKINS_HOME does not exist, then it will populate it from the 
+ # reference directory.
+ # WARNING: If reinitializing (JENKINS_REINSTALL non-blank), then JENKINS_HOME 
+ # will be wiped out and repopulated!!
  #
  # args:
  #    1   : <blank> or '--', then run jenkins, otherwise run 'exec' with the 
@@ -50,10 +50,10 @@ if [[ $# -lt 1 ]] || [[ "$1" == "--"* ]]; then
     && { echo "FATAL: Jenkins WAR not found in '$REF_DIR/lib/$base'."; exit 1; }
 
   #reinstall reference files in workspace, if needed
-  if [ -n "$JENKINS_REINSTALL" -a -d $REF_DIR ]; then 
+  if [ -n "$JENKINS_REINSTALL" -a -d $REF_DIR ] || [ ! -d $JENKINS_HOME -a -d $REF_DIR ]; then 
     echo "Copy reference files..."
     rsync -avzh --delete $REF_DIR/ $JENKINS_HOME/ || exit $?
-    echo "OK"
+    echo "Copy reference files...OK"
   fi
 
   #validate workspace resources
