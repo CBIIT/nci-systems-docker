@@ -24,7 +24,7 @@ set -o pipefail
 
 #if not reinstalling, then exit
 if [ -z "JENKINS_REINSTALL" ]; then
-  echo "Download plugins...SKIPPED. JENKINS_REINSTALL is blank"
+  echo "Download plugins...SKIPPED. JENKINS_REINSTALL=''"
   exit 0
 fi
 
