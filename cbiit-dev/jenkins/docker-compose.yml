@@ -7,9 +7,10 @@
 #   name: value
 # args: only list formst can omit values
 # boolean values enclose in string: "yes", "no", "true", "false", "on", "off"
-# overridable args and env vars will pass blank (vs nothing) to docker when not defined in environment (see https://github.com/docker/compose/issues/3608)
+# overridable args and env vars will pass blank (vs nothing) to docker when not defined in environment (see https://github.com/docker/compose/issues/3608), 
+#   unless v2.1 or higher specified
 
-version: '2'
+version: '2.1'
 services:
   jenkins-master:
     build:
@@ -19,7 +20,7 @@ services:
         - jenkins_version
         - jenkins_sha
         - debug
-    image: jenkins-master:latest
+    image: ${IMAGE:-jenkins-master:latest}
     #jenkinsa=1996
     user: 1996:1996
     # expose /local/home/jenkins so host-specific ssh key pair can be reached during initialization
