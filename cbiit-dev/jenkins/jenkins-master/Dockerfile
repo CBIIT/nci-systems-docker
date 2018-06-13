@@ -66,13 +66,17 @@ ENV BIN_DIR=/usr/local/bin \
   JENKINS_ENABLE_ACCESS_LOG="yes" \
   JENKINS_ARGS="--prefix=/jenkins" \
   JENKINS_WEB_ROOT="/var/lib/jenkins/war" \
-  JENKINS_JAVA_OPTIONS="-XshowSettings:vm -XshowSettings:properties \
-    -XX:MaxMetaspaceSize=512m -Xmx4096m \
-    -Djava.io.tmpdir=$java_io_tmpdir \
-    -Djava.awt.headless=true \
-    -Dcom.sun.jndi.ldap.connect.timout=10000 -Dcom.sun.jndi.ldap.read.timeout=20000 \
+  JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true \
+    -XX:MaxMetaspaceSize=512m \
+    -Dcom.sun.jndi.ldap.connect.timout=10000 \
+    -Dcom.sun.jndi.ldap.read.timeout=20000 \
     -Djavax.net.ssl.trustStorePassword=changeit \
     -Djenkins.install.runSetupWizard=false \
+    -Djava.io.tmpdir=$java_io_tmpdir \
+    -Xms2g \
+    -Xmx4g \
+    -XshowSettings:vm \
+    -XshowSettings:properties \
     -Dhudson.udp=$jenkins_udp \
     -Dhudson.remoting.ClassFilter='java.io.BufferedOutputStream,java.io.PrintStream,java.io.FileOutputStream,java.io.FileDescriptor,java.io.BufferedWriter,java.io.OutputStreamWriter,sun.nio.cs.StreamEncoder,sun.nio.cs.UTF_8,sun.nio.cs.UTF_8\$Encoder,java.nio.charset.CodingErrorAction,java.nio.HeapByteBuffer,java.text.SimpleDateFormat,java.text.DecimalFormat,java.text.DecimalFormatSymbols,java.text.DateFormatSymbols,LogFileOutputStream' \
   " \
